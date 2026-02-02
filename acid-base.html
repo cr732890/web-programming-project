@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Acid Base Titration Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/space.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">V-Labs+</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="subjects.html">Subjects</a>
+            <a href="labs.html">Labs</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Acid–Base Titration</h1>
+
+        <div class="lab-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>Chemistry Labs</h3>
+                <ul>
+                    <li><a href="#" style="color:#0a3cff; font-weight:bold;">Titration</a></li>
+                    <li><a href="#">Flame Test</a></li>
+                    <li><a href="#">Salt Analysis</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Tab Navigation -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="openTab(event, 'theory')">Theory</button>
+                    <button class="tab-btn" onclick="openTab(event, 'procedure')">Procedure</button>
+                    <button class="tab-btn" onclick="openTab(event, 'simulation')">Simulator</button>
+                    <button class="tab-btn" onclick="openTab(event, 'quiz')">Quiz</button>
+                </div>
+
+                <!-- Tab Panes -->
+                <div id="theory" class="tab-content active">
+                    <h2>Theory: Titration</h2>
+                    <p>Titration is a technique where a solution of known concentration is used to determine the
+                        concentration of an unknown solution.</p>
+                    <br>
+                    <p><strong>Indicator:</strong> Phenolphthalein is used to detect the end point.</p>
+                    <p><strong>Reaction:</strong> HCl + NaOH → NaCl + H₂O</p>
+                </div>
+
+                <div id="procedure" class="tab-content">
+                    <h2>Procedure</h2>
+                    <ol>
+                        <li>Fill the burette with NaOH solution.</li>
+                        <li>Take HCl solution in a beaker.</li>
+                        <li>Add drops of NaOH to HCl while stirring.</li>
+                        <li>Note the volume where the color changes (End Point).</li>
+                    </ol>
+                </div>
+
+                <div id="simulation" class="tab-content">
+                    <h2>Titration Simulator</h2>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <label>Volume of NaOH added (ml): <span id="volVal">0</span></label>
+                            <input type="range" min="0" max="50" value="0" id="volume">
+
+                            <p style="font-size: 1.1rem; margin: 20px 0;"><b>pH Value:</b> <span id="phVal">1.0</span>
+                            </p>
+                            <p id="status" style="font-weight: bold; color: #555;">Solution is acidic</p>
+                        </div>
+                        <div style="flex: 1; min-width: 300px; display:flex; justify-content:center;">
+                            <canvas id="titrationCanvas" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quiz" class="tab-content">
+                    <h2>Self Evaluation</h2>
+                    <p>1. What is the pH of a neutral solution?</p>
+                    <input type="radio" name="q1"> 7<br>
+                    <input type="radio" name="q1"> 1<br>
+                    <input type="radio" name="q1"> 14<br>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 V-Labs+ | Inspired by OLabs</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/titration.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Photosynthesis Rate Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/space.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">V-Labs+</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="subjects.html">Subjects</a>
+            <a href="labs.html">Labs</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Photosynthesis Experiment</h1>
+
+        <div class="lab-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>Biology Labs</h3>
+                <ul>
+                    <li><a href="#" style="color:#4facfe; font-weight:bold;">Photosynthesis</a></li>
+                    <li><a href="#">Mitosis</a></li>
+                    <li><a href="#">DNA Extraction</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Tab Navigation -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="openTab(event, 'theory')">Theory</button>
+                    <button class="tab-btn" onclick="openTab(event, 'procedure')">Procedure</button>
+                    <button class="tab-btn" onclick="openTab(event, 'simulation')">Simulator</button>
+                    <button class="tab-btn" onclick="openTab(event, 'quiz')">Quiz</button>
+                </div>
+
+                <!-- Tab Panes -->
+                <div id="theory" class="tab-content active">
+                    <h2>Theory: Photosynthesis</h2>
+                    <p>Photosynthesis is the process by which green plants and some other organisms use sunlight to
+                        synthesize nutrients from carbon dioxide and water.</p>
+                    <br>
+                    <p><strong>Equation:</strong> 6CO₂ + 6H₂O + Light → C₆H₁₂O₆ + 6O₂</p>
+                    <p><strong>Factors affecting rate:</strong></p>
+                    <ul>
+                        <li>Light Intensity</li>
+                        <li>Carbon Dioxide Concentration</li>
+                        <li>Temperature</li>
+                    </ul>
+                </div>
+
+                <div id="procedure" class="tab-content">
+                    <h2>Procedure</h2>
+                    <ol>
+                        <li>Place a Hydrilla plant in a beaker of water.</li>
+                        <li>Adjust the light intensity using the slider.</li>
+                        <li>Modify CO₂ concentration and Temperature.</li>
+                        <li>Observe the rate of oxygen bubbles produced.</li>
+                    </ol>
+                </div>
+
+                <div id="simulation" class="tab-content">
+                    <h2>Photosynthesis Simulator</h2>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <label>Light Intensity (%): <span id="lightVal">50</span>%</label>
+                            <input type="range" min="0" max="100" value="50" id="light">
+
+                            <label>CO₂ Concentration (%): <span id="co2Val">0.04</span>%</label>
+                            <input type="range" min="0" max="100" value="40" id="co2">
+
+                            <label>Temperature (°C): <span id="tempVal">25</span>°C</label>
+                            <input type="range" min="0" max="50" value="25" id="temp">
+
+                            <p style="font-size: 1.2rem; margin-top: 20px; color: #00f2fe;"><b>Bubbles per minute:</b>
+                                <span id="rateVal">0</span></p>
+                            <p id="status" style="color: #aaa; margin-top: 10px;">Adjust factors to see effect.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 300px; display:flex; justify-content:center;">
+                            <canvas id="photoCanvas" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quiz" class="tab-content">
+                    <h2>Self Evaluation</h2>
+                    <p>1. Which gas is released during photosynthesis?</p>
+                    <input type="radio" name="q1"> Carbon Dioxide<br>
+                    <input type="radio" name="q1"> Oxygen<br>
+                    <input type="radio" name="q1"> Nitrogen<br>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 V-Labs+ | Inspired by OLabs</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/photosynthesis.js"></script>
+</body>
+
+</html>

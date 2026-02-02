@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ohm's Law Virtual Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/space.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">V-Labs+</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="subjects.html">Subjects</a>
+            <a href="labs.html">Labs</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Ohm's Law Experiment</h1>
+
+        <div class="lab-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>Physics Labs</h3>
+                <ul>
+                    <li><a href="#" style="color:#0a3cff; font-weight:bold;">Ohm's Law</a></li>
+                    <li><a href="#">Hooke's Law</a></li>
+                    <li><a href="#">Simple Pendulum</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Tab Navigation -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="openTab(event, 'theory')">Theory</button>
+                    <button class="tab-btn" onclick="openTab(event, 'procedure')">Procedure</button>
+                    <button class="tab-btn" onclick="openTab(event, 'simulation')">Simulation</button>
+                    <button class="tab-btn" onclick="openTab(event, 'quiz')">Quiz</button>
+                </div>
+
+                <!-- Tab Panes -->
+                <div id="theory" class="tab-content active">
+                    <h2>Theory: Ohm's Law</h2>
+                    <p>Ohm's law states that the current flowing through a conductor is directly proportional to the
+                        potential difference applied across its ends, provided the temperature and other physical
+                        conditions remain constant.</p>
+                    <br>
+                    <p><strong>Formula:</strong> V = I × R</p>
+                    <p>Where:</p>
+                    <ul>
+                        <li>V = Potential Difference (Voltage)</li>
+                        <li>I = Current in Amperes</li>
+                        <li>R = Resistance in Ohms</li>
+                    </ul>
+                </div>
+
+                <div id="procedure" class="tab-content">
+                    <h2>Procedure</h2>
+                    <ol>
+                        <li>Set the resistance value using the slider.</li>
+                        <li>Vary the voltage using the voltage slider.</li>
+                        <li>Observe the change in current (Amperes).</li>
+                        <li>Verify the relationship V = IR.</li>
+                    </ol>
+                </div>
+
+                <div id="simulation" class="tab-content">
+                    <h2>Ohm's Law Simulator</h2>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <label>Voltage (V): <span id="vVal">5</span> V</label>
+                            <input type="range" min="1" max="10" value="5" id="voltage">
+
+                            <label>Resistance (Ω): <span id="rVal">5</span> Ω</label>
+                            <input type="range" min="1" max="10" value="5" id="resistance">
+
+                            <p style="font-size: 1.2rem; margin-top: 20px;"><b>Current (I):</b> <span
+                                    id="current">1</span> A</p>
+                        </div>
+                        <div style="flex: 1; min-width: 300px; display:flex; justify-content:center;">
+                            <canvas id="circuitCanvas" width="400" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quiz" class="tab-content">
+                    <h2>Self Evaluation</h2>
+                    <p>1. If Voltage is doubled while Resistance is constant, Current will:</p>
+                    <input type="radio" name="q1"> Double<br>
+                    <input type="radio" name="q1"> Halve<br>
+                    <input type="radio" name="q1"> Remain same<br>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 V-Labs+ | Inspired by OLabs</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/ohms.js"></script>
+</body>
+
+</html>
