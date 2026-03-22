@@ -1,0 +1,118 @@
+const API = 'http://localhost:3000/api';
+
+const usernameInput = document.getElementById('signup-username');
+const passwordInput = document.getElementById('signup-password');
+const confirmInput  = document.getElementById('signup-confirm');
+const signupBtn     = document.getElementById('signup-btn');
+
+// If already logged in, skip signup
+if (localStorage.getItem('token')) {
+  window.location.href = 'subjects.html';
+}
+
+function showError(msg) {
+  let err = document.getElementById('signup-error');
+  if (!err) {
+    err = document.createElement('p');
+    err.id = 'signup-error';
+    err.style.cssText = 'color: red; margin-top: 10px; font-size: 0.9rem;';
+    signupBtn.insertAdjacentElement('afterend', err);
+  }
+  err.style.color = 'red';
+  err.textContent = msg;
+}
+
+function showSuccess(msg) {
+  let err = document.getElementById('signup-error');
+  if (!err) {
+    err = document.createElement('p');
+    err.id = 'signup-error';
+    err.style.cssText = 'margin-top: 10px; font-size: 0.9rem;';
+    signupBtn.insertAdjacentElement('afterend', err);
+  }
+  err.style.color = 'green';
+  err.textContent = msg;
+}
+
+function clearError() {
+  const err = document.getElementById('signup-error');
+  if (err) err.textContent = '';
+}
+
+function validatePassword(password) {
+  if (password.length < 6) return 'Password must be at least 6 characters.';
+  return null;
+}
+
+async function handleSignup() {
+  clearError();
+
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value;
+  const confirm  = confirmInput.value;
+
+  // Validation
+  if (!username || !password || !confirm) {
+    showError('All fields are required.');
+    return;
+  }
+
+  if (username.length < 3) {
+    showError('Username must be at least 3 characters.');
+    return;
+  }
+
+  if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+    showError('Username can only contain letters, numbers, and underscores.');
+    return;
+  }
+
+  const passwordError = validatePassword(password);
+  if (passwordError) {
+    showError(passwordError);
+    return;
+  }
+
+  if (password !== confirm) {
+    showError('Passwords do not match.');
+    return;
+  }
+
+  signupBtn.disabled = true;
+  signupBtn.textContent = 'Creating account...';
+
+  try {
+    const res = await fetch(`${API}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: username, username, password })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      showError(data.error || 'Signup failed. Please try again.');
+      return;
+    }
+
+    // Save token and redirect
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    showSuccess('Account created! Redirecting...');
+    setTimeout(() => {
+      window.location.href = 'subjects.html';
+    }, 1000);
+
+  } catch (err) {
+    showError('Could not connect to the server. Make sure it is running.');
+  } finally {
+    signupBtn.disabled = false;
+    signupBtn.textContent = 'Sign Up';
+  }
+}
+
+signupBtn.addEventListener('click', handleSignup);
+confirmInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleSignup();
+});

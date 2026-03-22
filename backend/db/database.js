@@ -33,7 +33,8 @@ function initSchema() {
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
+      username TEXT UNIQUE NOT NULL,
+      email TEXT UNIQUE,
       password TEXT NOT NULL,
       role TEXT DEFAULT 'student',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -67,7 +68,6 @@ function initSchema() {
   saveDb();
 }
 
-// Helper: run a query and return all rows as objects
 function queryAll(sql, params = []) {
   const stmt = db.prepare(sql);
   stmt.bind(params);
@@ -79,17 +79,14 @@ function queryAll(sql, params = []) {
   return rows;
 }
 
-// Helper: run a query and return first row
 function queryOne(sql, params = []) {
   const rows = queryAll(sql, params);
   return rows[0] || null;
 }
 
-// Helper: run insert/update/delete
 function run(sql, params = []) {
   db.run(sql, params);
   saveDb();
-  // Return last inserted rowid
   const result = db.exec('SELECT last_insert_rowid() as id');
   return result[0]?.values[0][0];
 }
