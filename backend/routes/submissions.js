@@ -4,19 +4,24 @@ const { authenticate, adminOnly } = require('../middleware/auth');
 
 // POST /api/submissions — submit code for a lab
 router.post('/', authenticate, async (req, res) => {
-  const { lab_id, code } = req.body;
-  if (!lab_id || !code) return res.status(400).json({ error: 'lab_id and code are required' });
+  try {
+    const { lab_id, code } = req.body;
+    if (!lab_id || !code) return res.status(400).json({ error: 'lab_id and code are required' });
 
-  await getDb();
-  const lab = queryOne('SELECT id FROM labs WHERE id = ?', [lab_id]);
-  if (!lab) return res.status(404).json({ error: 'Lab not found' });
+    await getDb();
+    const lab = queryOne('SELECT id FROM labs WHERE id = ?', [lab_id]);
+    if (!lab) return res.status(404).json({ error: 'Lab not found. Please ensure lab exists.' });
 
-  const id = run(
-    'INSERT INTO submissions (user_id, lab_id, code) VALUES (?, ?, ?)',
-    [req.user.id, lab_id, code]
-  );
-  const submission = queryOne('SELECT * FROM submissions WHERE id = ?', [id]);
-  res.status(201).json(submission);
+    const id = run(
+      'INSERT INTO submissions (user_id, lab_id, code) VALUES (?, ?, ?)',
+      [req.user.id, lab_id, code]
+    );
+    const submission = queryOne('SELECT * FROM submissions WHERE id = ?', [id]);
+    res.status(201).json(submission);
+  } catch (err) {
+    console.error('Submission error:', err);
+    res.status(500).json({ error: 'Failed to save submission: ' + err.message });
+  }
 });
 
 // GET /api/submissions/my — get current student's submissions

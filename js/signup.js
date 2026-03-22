@@ -1,5 +1,3 @@
-const API = 'http://localhost:3000/api';
-
 const usernameInput = document.getElementById('signup-username');
 const passwordInput = document.getElementById('signup-password');
 const confirmInput  = document.getElementById('signup-confirm');
@@ -82,22 +80,9 @@ async function handleSignup() {
   signupBtn.textContent = 'Creating account...';
 
   try {
-    const res = await fetch(`${API}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: username, username, password })
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      showError(data.error || 'Signup failed. Please try again.');
-      return;
-    }
-
-    // Save token and redirect
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
+    const data = await auth.register(username, username, password);
+    
+    setAuth(data.token, data.user);
 
     showSuccess('Account created! Redirecting...');
     setTimeout(() => {
@@ -105,7 +90,7 @@ async function handleSignup() {
     }, 1000);
 
   } catch (err) {
-    showError('Could not connect to the server. Make sure it is running.');
+    showError(err.message || 'Signup failed. Please try again.');
   } finally {
     signupBtn.disabled = false;
     signupBtn.textContent = 'Sign Up';

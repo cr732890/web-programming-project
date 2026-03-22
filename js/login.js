@@ -1,5 +1,3 @@
-const API = 'http://localhost:3000/api';
-
 const usernameInput = document.querySelector('input[type="text"]');
 const passwordInput = document.querySelector('input[type="password"]');
 const loginBtn      = document.querySelector('.btn');
@@ -40,21 +38,9 @@ async function handleLogin() {
   loginBtn.textContent = 'Logging in...';
 
   try {
-    const res = await fetch(`${API}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      showError(data.error || 'Login failed. Please try again.');
-      return;
-    }
-
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
+    const data = await auth.login(username, password);
+    
+    setAuth(data.token, data.user);
 
     if (data.user.role === 'admin') {
       window.location.href = 'admin.html';
@@ -63,7 +49,7 @@ async function handleLogin() {
     }
 
   } catch (err) {
-    showError('Could not connect to the server. Make sure it is running.');
+    showError(err.message || 'Login failed. Please try again.');
   } finally {
     loginBtn.disabled = false;
     loginBtn.textContent = 'Login';
